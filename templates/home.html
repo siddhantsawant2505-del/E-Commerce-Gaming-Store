@@ -1,0 +1,403 @@
+{%load static%}
+{% load range_filter %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> GameHeaven Website</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <link rel="stylesheet" href="static\styles.css">
+
+</head>
+<body>
+    
+    <header class="header">
+        <a href="#" class="logo"> <i class="fas fa-gamepad"></i> GameHeaven </a>
+    
+        <nav class="navbar">
+            <a href="#home">Home</a>
+            <a href="#categories">Categories</a>
+            <div class="dropdown">
+                <a href="{% url 'products' %}" class="dropbtn">Products <i class="fas fa-chevron-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="{% url 'products' %}#ps_consoles" class="active">PS Consoles</a>
+                    <a href="{% url 'products' %}#xbox_consoles">XBOX Consoles</a>
+                    <a href="{% url 'products' %}#nintendo">Nintendo Switches</a>
+                    <a href="{% url 'products' %}#gamepads">Gamepads</a>
+                    <a href="{% url 'products' %}#keyboards">Keyboards</a>
+                    <a href="{% url 'products' %}#headphones">Headphones</a>
+                </div>
+            </div>
+            <a href="#about ">About</a>
+            <a href="#review">Reviews</a>
+            <a href="{% url 'about' %}#contact">Feedback</a>
+            <a href="{% url 'search' %}">Search</a>
+        </nav>
+    
+        <div class="icons">
+                <div class="dropdown">
+                    <a  class="dropbtn"><div id="cart-btn" class="fas fa-shopping-basket"></div><i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="{% url 'mycart' %}" >My Cart    <i class="fas fa-shopping-basket"></i> </a>
+                        <a href="{% url 'view_orders' %}">My Orders    <i class="fas fa-shopping-cart"></i></a>
+                    </div>
+            <a href="logout/" title="Logout">
+                <div id="login-btn" class="fas fa-sign-out-alt"></div>
+            </a>
+            <div id="menu-btn" class="fas fa-bars"></div>
+        </div>
+    </header>
+
+    <!-- end -->
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <!-- home -->
+
+
+    <section class="home" id="home">
+
+        <div class="content">
+                 <h3>buy best <span style=" font-family: 'MV Boli', cursive, sans-serif;"> consoles and gaming products </span> online </h3>
+                 <a href="{% url 'products' %}" class="btn"> shop now</a>
+    
+            
+        </div>
+
+    </section>
+
+    <!-- end -->
+
+    <!-- banner -->
+<br><br>
+    <h1 class="heading"> <span>  categories  </span></h1>
+
+    <section class="banner-container" id="categories">
+
+        <div class="banner">
+            <img src="static\psss5.png" alt="">
+            <div class="content">
+                <h3>playstation <br>gaming <br>consoles</h3>
+                <a href="{% url 'products' %}#ps_consoles" class="btn">shop now</a>
+            </div>
+        </div>
+
+        <div class="banner">
+            <img src="static\xbox.png" alt="">
+            <div class="content">
+                <h3>XBOX<br>gaming <br>consoles</h3>
+                <a href="{% url 'products' %}#xbox_consoles" class="btn">shop now</a>
+            </div>
+        </div>
+
+        <div class="banner">
+            <img src="static\gamepad.png" alt="">
+            <div class="content">
+                <h3>Wireless / <br>Wired <br>Gamepads</h3>
+                <a href="{% url 'products' %}#gamepads" class="btn">shop now</a>
+            </div>
+        </div>
+    </div>
+    <div class="banner">
+        <img src="static\nintendo.png" alt="">
+        <div class="content">
+            <h3>Nintendo <br>Switches</h3>
+            <a href="{% url 'products' %}#nintendo" class="btn">shop now</a>
+        </div>
+    </div>
+    <div class="banner">
+        <img src="static\keyboard.png" alt="">
+        <div class="content">
+            <h3>Gaming <br>Keyboards</h3>
+            <a href="{% url 'products' %}#keyboards" class="btn">shop now</a>
+        </div>
+    </div>
+
+    <div class="banner">
+        <img src="static\headphones.png" alt="">
+        <div class="content">
+            <h3>Gaming <br>Headphones</h3>
+            <a href="{% url 'products' %}#headphones" class="btn">shop now</a>
+        </div>
+    </div>
+</div>
+    
+    </section>
+
+
+    <!-- end -->
+
+    <!-- about -->
+
+    <section class="about" id="about">
+
+        <h1 class="heading"> <span>about </span> us </h1>
+
+        <div class="row">
+
+            <div class="content">
+                <h3>the best website to order gaming products</h3>
+                <div class="divider"></div>
+                <p>Welcome to GameHeaven, your ultimate destination for cutting-edge gaming consoles, accessories, and products. At GameHeaven, we believe that gaming is more than just a hobby—it's a lifestyle. Whether you're a casual player or a hardcore enthusiast, we are dedicated to bringing you the latest and greatest in gaming technology. From next-gen consoles to high-performance gear, our carefully curated selection ensures you have everything you need to level up your gaming experience. With a passion for gaming and a commitment to customer satisfaction, GameHeaven is where gamers unite. Join us in exploring new worlds, conquering challenges, and unlocking endless entertainment possibilities!</p>
+                <a href="{% url 'about' %}" class="btn">read more</a>
+            </div>
+
+            <div class="image">
+                <img src="static\about2.jpg" alt="">
+            </div>
+
+            <div class="image">
+                <img src="static\abou1.jpg" alt="">
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- end -->
+
+    <!-- review -->
+
+    <section class="review" id="review">
+
+        <h1 class="heading"> client's <span>review</span> </h1>
+
+        <div class="review-wrapper">
+
+    
+        <div class="swiper review-slider">
+          
+    
+            <div class="swiper-wrapper">
+
+
+                {% for review in reviews %}
+                <div class="swiper-slide slide">
+                    <p>"{{ review.desc }}"</p>
+                    <i class="fas fa-quote-right"></i>
+                    <div class="user">
+                        <img src="{% static 'userimg.jpg' %}" alt="">
+                        <div class="user-info">
+                            <h3>{{ review.name }} {{ review.lastname }}</h3>
+                            <div class="stars">
+                                    {% for star in review.rating|star_filter %}
+                                        {% if star == 'full' %}
+                                            <i class="fas fa-star"></i>  <!-- Full star -->
+                                        {% elif star == 'half' %}
+                                            <i class="fas fa-star-half-alt"></i>  <!-- Half star -->
+                                        {% else %}
+                                            <i class="far fa-star"></i>  <!-- Empty star -->
+                                        {% endif %}
+                                    {% endfor %}
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            
+                <div class="swiper-slide slide">
+    
+                    <p>"GameHeaven is my go-to site for all my gaming needs! I pre-ordered my latest console here, and it arrived right on time. Their customer service is top-notch, and they always have great deals on accessories!"</p>
+                    <i class="fas fa-quote-right"></i>
+                    <div class="user">
+                        <img src="static/review-1.png" alt="">
+                        <div class="user-info">
+                            <h3>Noah Thompson</h3>
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+    
+                </div>
+    
+                <div class="swiper-slide slide">
+    
+                    <p>"I’ve been a loyal customer of GameHeaven for a year now. They have everything a gamer could want—from the newest consoles to the most comfortable gaming chairs. Fast shipping and easy returns make it even better!"
+
+                    </p>
+                    <i class="fas fa-quote-right"></i>
+                    <div class="user">
+                        <img src="static/review-2.png" alt="">
+                        <div class="user-info">
+                            <h3>Emma Johnson</h3>
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+    
+                </div>
+    
+                <div class="swiper-slide slide">
+    
+                    <p>"Pre-ordered my PS5 from GameHeaven, and everything went smoothly. The delivery was fast, and I even found some rare gaming accessories that are hard to find elsewhere."</p>
+                    <i class="fas fa-quote-right"></i>
+                    <div class="user">
+                        <img src="static/review-3.png" alt="">
+                        <div class="user-info">
+                            <h3>Liam Carter</h3>
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+    
+                </div>
+    
+                <div class="swiper-slide slide">
+    
+                    <p>"GameHeaven is my go-to for gaming consoles and accessories. They always have what I need, and the checkout process is quick and hassle-free. Definitely a great experience every time!"</p>
+                    <i class="fas fa-quote-right"></i>
+                    <div class="user">
+                        <img src="static/review-4.png" alt="">
+                        <div class="user-info">
+                            <h3>Olivia Martinez</h3>
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+    
+                </div>
+    
+                <div class="swiper-slide slide">
+    
+                    <p>"I’ve upgraded my gaming setup with items from GameHeaven, and I couldn’t be happier. High-quality products, excellent customer support, and timely delivery. Great site for gamers!"</p>
+                    <i class="fas fa-quote-right"></i>
+                    <div class="user">
+                        <img src="static/review-5.png" alt="">
+                        <div class="user-info">
+                            <h3>Daniel Patel</h3>
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+    
+                </div>
+    
+                <div class="swiper-slide slide">
+    
+                    <p>"I've tried several gaming management apps, but GameHeaven stands out for its ease of use and great customer support."</p>
+                    <i class="fas fa-quote-right"></i>
+                    <div class="user">
+                        <img src="static/review-6.png" alt="">
+                        <div class="user-info">
+                            <h3>Sophia Williams</h3>
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+    
+                </div>
+    
+            </div>
+            
+    
+        </div>
+        <div class="swiper-button-prev"></i></div>
+        <div class="swiper-button-next"></i></div>
+    </div>
+    </section>
+    
+     <!-- end --> 
+
+    <!-- footer -->
+
+    <section class="footer">
+
+        <div class="box-container">
+
+            <div class="box">
+                <h5>find us here</h5>
+                <p style="font-size : medium;">St.Francis Institute Of Technology</p>
+                <div class="share">
+                    <a href="{% url 'about' %}" class="fab fa-facebook-f"></a>
+                    <a href="{% url 'about' %}" class="fab fa-twitter"></a>
+                    <a href="{% url 'about' %}" class="fab fa-instagram"></a>
+                    <a href="{% url 'about' %}" class="fab fa-linkedin"></a>
+                </div>
+            </div>
+
+            <div class="box">
+                <h5>contact us</h5>
+                <p style="font-size : medium;">+91 9876543210</p>
+                <a href="mailto:gameheaven@gmail.com" class="link" style="color:#1c2137; text-transform:none;">gameheaven@gmail.com</a>
+            </div>
+       
+
+            <div class="box">
+                <h5 >localization</h5>
+                <p style="font-size : medium; padding-top: 10px;">Near IC-Colony , Borivali ( West ) , Mumbai </p>
+            </div>
+        </div>
+
+        <div class="credit">created by <span> @GameHeaven </span> all rights reserved!</div>
+
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+
+        var swiper = new Swiper('.review-slider', {
+            spaceBetween: 30,
+            loop: true, // Allows infinite scrolling
+            autoplay: {
+                delay: 5000, // Adjust delay time (milliseconds) for autoplay
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+    </script>
+</body>
+</html>

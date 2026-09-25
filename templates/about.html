@@ -1,0 +1,206 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <link rel="stylesheet" href="{% static 'signStyle.css' %}">
+    <title>About Us - GameHeaven</title>
+    
+</head>
+<body>
+
+    <header class="header">
+        <a href="#" class="logo"> <i class="fas fa-gamepad"></i> GameHeaven </a>
+    
+        <nav class="navbar">
+            <a href="{% url 'home' %}">Home</a>
+            <div class="dropdown">
+                <a href="{% url 'products' %}" class="dropbtn">Products<i class="fas fa-chevron-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="{% url 'products' %}#ps_consoles" class="active">PS Consoles</a>
+                    <a href="{% url 'products' %}#xbox_consoles">XBOX Consoles</a>
+                    <a href="{% url 'products' %}#nintendo">Nintendo Switches</a>
+                    <a href="{% url 'products' %}#gamepads">Gamepads</a>
+                    <a href="{% url 'products' %}#keyboards">Keyboards</a>
+                    <a href="{% url 'products' %}#headphones">Headphones</a>
+                </div>
+            </div>
+            <a href="{% url 'about' %}">About</a>
+            <a href="{% url 'home' %}#review">Reviews</a>
+            <a href="{% url 'about' %}#contact">Feedback</a>
+            <a href="{% url 'search' %}">Search</a>
+            
+        </nav>
+    
+        <div class="icons">
+            <div class="dropdown">
+                <a  class="dropbtn"><div id="cart-btn" class="fas fa-shopping-basket"></div><i class="fas fa-chevron-down"></i></a>
+                <div class="dropdown-content">
+                    <a href="{% url 'mycart' %}" >My Cart    <i class="fas fa-shopping-basket"></i> </a>
+                    <a href="{% url 'view_orders' %}">My Orders    <i class="fas fa-shopping-cart"></i></a>
+                </div>
+            <a href="{% url 'logout' %}" title="Logout">
+                <div id="login-btn" class="fas fa-sign-out-alt"></div>
+            </a>
+            <div id="menu-btn" class="fas fa-bars"></div>
+        </div>
+    </header> 
+    <div class="space"></div>
+    <div class="container">
+        <div class="bg-overlay"></div>
+        <div class="content">
+            <h1>About Us</h1>
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2>Welcome to GameHeaven!</h2>
+                    <p>At <strong>GameHeaven</strong>, we are passionate about gaming and dedicated to providing gamers with a seamless shopping experience. As a one-stop shop for all gamers and gaming accessories, we offer an extensive range of products, from the latest consoles to gaming peripherals and exclusive merchandise. Our mission is to cater to the needs of every gamer, ensuring you have everything you need to enhance your gaming experience.</p>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2>Our Mission</h2>
+                    <p>Our mission is to revolutionize the gaming retail space by delivering exceptional products and services that empower gamers to elevate their play. We strive to create a community where gamers can easily find high-quality gaming gear, share their experiences, and connect with others who share their passion.</p>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2>Our Vision</h2>
+                    <p>We envision a future where every gamer, regardless of their experience level, has access to the best gaming products and resources available. At GameHeaven, we aim to be the go-to platform for gaming enthusiasts, promoting a culture of inclusivity, innovation, and continuous improvement in the gaming community.</p>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2>Core Values</h2>
+                    <ul>
+                        <li><strong>Customer Focus:</strong> We prioritize our customers’ needs, ensuring we provide them with the best shopping experience.</li>
+                        <li><strong>Quality:</strong> We are committed to offering high-quality products that meet the standards of serious gamers.</li>
+                        <li><strong>Innovation:</strong> We continuously seek innovative solutions and products to keep pace with the fast-evolving gaming industry.</li>
+                        <li><strong>Community:</strong> We believe in fostering a supportive community for gamers, where everyone is welcome.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2>Our Team</h2>
+                    <p>GameHeaven is built by a dedicated team of four gaming enthusiasts who bring diverse skills and expertise to the table. Together, we share a common goal: to provide the ultimate shopping experience for gamers.</p>
+                    <p>Team Members : </p>
+                    <ul>
+                        <li><strong>VIRAJ PRABHU</strong></li>
+                        <li><strong>GHRANI POOJARI</strong></li>
+                        <li><strong>PAVAN SAWANT</strong> </li>
+                        <li><strong>VERNON RODRIGUES</strong></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2>What Makes Us Unique</h2>
+                    <p>At GameHeaven, we pride ourselves on being more than just an online store. Our platform is designed to be a comprehensive resource for gamers, featuring:</p>
+                    <ul>
+                        <li><strong>Wide Range of Products:</strong> From consoles to collectibles, we have everything a gamer could desire.</li>
+                        <li><strong>Competitive Pricing:</strong> We offer competitive prices to ensure our customers receive the best value.</li>
+                        <li><strong>Expert Recommendations:</strong> Our team is always available to provide personalized recommendations and support.</li>
+                        <li><strong>Community Engagement:</strong> We host events, forums, and promotions to keep our community engaged and connected.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2>Join Us on This Journey</h2>
+                    <p>Thank you for visiting GameHeaven. We invite you to explore our products and join our growing community of gamers. Whether you’re a seasoned pro or just starting, we are here to support you in your gaming journey. Let’s elevate your gaming experience together!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <!-- contact -->
+    
+    <section class="contact" id="contact">
+
+        <h1 class="heading" style="background: #be81ffbb; color:darkred; border-radius:10px;"> Feedback </h1>
+
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show my-0 py-0" role="alert">
+        <strong><h2>{{ message }}<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></h2></strong>
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        <div class="row">
+
+            <div class="image">
+                <img src="{% static 'contact.png'%}" alt="">
+            </div>
+
+            <form method="post" action="/contact/">
+                {% csrf_token %}
+
+                <div class="inputBox">
+                    <input type="name" class="form-control" id="name" name="name" placeholder="ENTER FULL NAME" required />
+                    <input type="number" class="form-control" id="rating" name="rating" min="0" max="5" step="0.01" placeholder="GIVE RATING BETWEEN 0-5" required>
+                </div>
+
+                <div class="inputBox">
+                    <input type="email" class="form-control" id="email" name="email" placeholder="ENTER EMAIL" />
+                    <input type="number" class="form-control" id="phone" name="phone" placeholder="ENTER PHONE NUMBER" />
+                </div>
+
+                <textarea class="form-control" id="desc" name="desc" rows="3" placeholder="ENTER THE FEEDBACK" required></textarea>
+                <button class="btn btn-primary"  type="submit" >Submit</button>
+            </form>
+
+        </div>
+
+    </section>
+
+    <!-- end -->
+
+    <!-- footer -->
+    <section class="footer">
+
+        <div class="box-container">
+
+            <div class="box">
+                <h5>find us here</h5>
+                <p style="font-size : medium;">St.Francis Institute Of Technology</p>
+                <div class="share">
+                    <a href="#" class="fab fa-facebook-f"></a>
+                    <a href="#" class="fab fa-twitter"></a>
+                    <a href="#" class="fab fa-instagram"></a>
+                    <a href="#" class="fab fa-linkedin"></a>
+                </div>
+            </div>
+
+            <div class="box">
+                <h5>contact us</h5>
+                <p style="font-size : medium;">+91 9876543210</p>
+                <a href="mailto:gameheaven@gmail.com" class="link" style="color:#1c2137; text-transform:none;">gameheaven@gmail.com</a>
+            </div>
+       
+
+            <div class="box">
+                <h5 >localization</h5>
+                <p style="font-size : medium; padding-top: 10px;">Near IC-Colony , Borivali ( West ) , Mumbai </p>
+            </div>
+        </div>
+
+        
+
+        <div class="credit">created by <span> @GameHeaven </span> all rights reserved!</div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

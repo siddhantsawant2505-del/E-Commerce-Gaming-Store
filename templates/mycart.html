@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameHeaven - My Cart</title>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles1.css' %}">
+    
+
+</head>
+<body>
+    {% if user.is_authenticated %}
+  <div id="user-logged-in" data-username="{{ user.username }}"></div>
+{% else %}
+  <div id="user-logged-in" style="display:none;"></div>
+{% endif %}
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="gap: 2rem; border-radius: 20px;">
+        
+        <a href="#" class="navbar-brand"> <i class="fas fa-gamepad" style="color:#ffba43;"></i> GameHeaven </a> 
+        <div class="collapse navbar-collapse" >
+            <ul class="navbar-nav mr-auto" style="gap: 2rem;">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'view_orders' %}">My Orders</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'products' %}">Products</a>
+                </li>
+                <li>
+                    <a class="nav-link" href="{% url 'search' %}">Search</a>
+                </li>
+                
+        </div>
+    </nav>
+    <div class="container">
+        <h1 class="display-4 text-center my-5">My Cart</h1>
+        <table class="table" id="cartTable">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Cart items will be dynamically populated here -->
+            </tbody>
+        </table>
+        <a href=".."><button  class="btn btn-primary" id="checkoutButton">Checkout</button></a>
+        {% csrf_token %}
+       
+    </div>
+
+    <script>
+        
+      // Load cart from localStorage and display in the table
+function loadCart() {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    console.log('Current cart items:', cart); 
+    let cartTableBody = document.querySelector('#cartTable tbody');
+    cartTableBody.innerHTML = '';  // Clear table first
+
+    if (cart.length === 0) {
+        cartTableBody.innerHTML = '<tr><td colspan="5" class="text-center">Your cart is empty!</td></tr>';
+        document.getElementById('checkoutButton').disabled = true;
+        return;
+    }
+
+    cart.forEach((itemle, index) => {
+        let total = itemle.price * itemle.quantity;
+        cartTableBody.innerHTML += `
+            <tr>
+                <td>${itemle.name}</td>
+                <td>
+                    <button class="btn btn-secondary btn-sm" style="background-color: #8c52ff; border-color: #8c52ff;" onclick="changeQuantity(${index}, -1, ${itemle.fixed_id})">-</button>
+                    <span>${itemle.quantity}</span>
+                    <button class="btn btn-secondary btn-sm" style="background-color: #8c52ff; border-color: #8c52ff;" onclick="changeQuantity(${index}, 1, ${itemle.fixed_id})">+</button>
+                </td>
+                <td>₹${itemle.price}</td>
+                <td>₹${total}</td>
+                
+                <td><button class="btn btn-danger" onclick="removeFromCart(${index} , ${itemle.fixed_id})">Remove</button></td>
+            </tr>
+        `;
+    });
+
+    document.getElementById('checkoutButton').disabled = false;
+}
+
+// Remove item from cart and update the server
+function removeFromCart(index, fixedId) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const itemToRemove = cart[index];  // Get the item to remove
+
+    // Remove item from local storage
+    cart.splice(index, 1);  // Remove item by index
+    localStorage.setItem('cart', JSON.stringify(cart));
+    loadCart();  // Reload cart after removing
+
+    // If the user is logged in, remove from the server-side cart as well
+    if (userIsLoggedIn() && fixedId) {
+        fetch(`/remove_item/${fixedId}/`, {  // Use the product ID passed to the function
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'  // Include CSRF token for security
+            },
+            body: JSON.stringify({})  // You can send additional data if needed
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to remove item from the cart');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Item removed from server cart:', data);
+        })
+        .catch(error => {
+            console.error('Error removing item from server:', error);
+        });
+    }
+}
+
+// Handle checkout
+document.getElementById('checkoutButton').addEventListener('click', function() {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    fetch('/checkout/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'  // Include CSRF token for security
+        },
+        body: JSON.stringify(cart)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+
+        if (data.success) {
+            // Clear the cart from localStorage
+            localStorage.removeItem('cart');
+            alert('Checkout successfull !  Check Your Order In My Orders.');
+
+            // Clear the cart display
+            loadCart();
+        } else {
+            alert('Checkout failed: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error(error);
+        alert('Error processing checkout.');
+    });
+});
+
+ function userIsLoggedIn() {
+    return document.querySelector('#user-logged-in').dataset.username !== undefined;
+}
+function changeQuantity(index, change, fixed_id) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart[index].quantity += change;
+
+    // Check if the quantity is less than 1
+    if (cart[index].quantity < 1) {
+        alert('The Item Was Removed !');
+        removeFromCart(index, fixed_id);  // Remove the item if quantity is less than 1
+    } else {
+        // Update the localStorage and reload the cart display
+        localStorage.setItem('cart', JSON.stringify(cart));
+        loadCart();  // Reload cart after changing quantity
+
+        // Send the updated quantity to the backend
+        fetch(`/update_quantity/${fixed_id}/`, {  // Ensure the URL matches the Django URL
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'  // Ensure CSRF token is passed
+            },
+            body: JSON.stringify({ quantity: cart[index].quantity })  // Send new quantity
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                console.log('Quantity updated in backend:', data);
+            } else {
+                console.error('Failed to update quantity in backend:', data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error updating quantity:', error);
+            alert('Error updating item quantity. Please try again.');
+        });
+    }
+}
+// Load the cart specific to the logged-in user
+document.addEventListener('DOMContentLoaded', function() {
+    if (userIsLoggedIn()) {
+        console.log("hello");
+        loadCartForUser();  // Fetch user-specific cart from server
+    } else {
+        loadCart();  // Load from local storage if user is not logged in
+    }
+});
+// Load the cart specific to the logged-in user
+function loadCartForUser() {
+    console.log(2 , JSON.parse(localStorage.getItem('cart')));
+    fetch('/load_user_cart/')
+        .then(response => response.json())
+        .then(data => {
+            if (data.cart) {
+                console.log(1,JSON.parse(localStorage.getItem('cart')));
+                localStorage.setItem('cart', JSON.stringify(data.cart));
+                console.log(JSON.parse(localStorage.getItem('cart')));
+                loadCart();  // Reload cart display
+            }
+        })
+        .catch(error => console.error('Error loading user cart:', error));
+}
+// Initialize cart on page load
+document.addEventListener('DOMContentLoaded', loadCart);
+
+    </script>
+</body>
+</html>
