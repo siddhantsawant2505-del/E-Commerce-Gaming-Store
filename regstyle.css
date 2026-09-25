@@ -1,0 +1,30 @@
+html,
+body {
+  height: 100%;
+  background-image: url(loginpg1.jpg);
+  background-size: cover;
+}
+
+.form-signin {
+  padding: 1rem;
+  background-color: #ffffffbb;
+  border-radius: 2rem;
+  max-width: 500px;
+ 
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
